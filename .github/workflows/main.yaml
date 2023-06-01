@@ -9,7 +9,7 @@ on:
 jobs:
   build-deploy:
     name: Build and Deploy Cars API
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,13 +20,8 @@ jobs:
           distribution: 'corretto'
           java-version: 17
 
-      - name: Setup Maven
-        uses: stCarolas/setup-maven@v4.4
-        with:
-          maven-version: 3.8.2
-
       - name: Unit Tests
-        run: mvn clean package
+        run: mvn -B test --file pom.xml
 
       - name: Build the application
         run:
